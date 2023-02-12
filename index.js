@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const keepLive = require("./server");
-
+// const answer = ["Alright, I will just get it done for you now so you can leave me alone.", "Come on, when will you finish?", "Here you are, happy now?", "Just give me alone for 1 sec please? ", "I don't know what you gonna do with these infomation but FBI always monitoring you", "If you are arrested, don't say my name.", "This is not plagiarism, I guess"]
 const { Client, GatewayIntentBits } = require("discord.js");
 
 const client = new Client({
@@ -13,10 +13,12 @@ const client = new Client({
 });
 
 const { Configuration, OpenAIApi } = require("openai");
-
+const mySecret = process.env['DISCORD_KEY']
+const mySecret2 = process.env['OPENAI_KEY']
+const mySecret3 = process.env['OPENAI_ORG']
 const configuration = new Configuration({
-  organization: process.env.OPENAI_ORG,
-  apiKey: process.env.OPENAI_KEY,
+  organization: mySecret3,
+  apiKey: mySecret2,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -37,15 +39,17 @@ client.on("messageCreate", async (message) => {
       });
 
       try {
-        console.log(response.data);
-        message.reply(response.data.choices[0].text);
+        var lead = answer[Math.floor(Math.random() * answer.length)];
+        message.reply("Rurrrrrrr: " + response.data.choices[0].text);
       } catch (err) {
         console.log(err);
+        message.reply("Argh something went wrong, try again later!")
       }
     }
   } catch (err) {
     console.log(err);
+    message.reply("Argh something went wrong, try again later!")
   }
 });
 keepLive();
-client.login(process.env.DISCORD_KEY);
+client.login(mySecret);
