@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const keepLive = require("./server");
+
 const { Client, GatewayIntentBits } = require("discord.js");
 
 const client = new Client({
@@ -35,6 +37,7 @@ client.on("messageCreate", async (message) => {
       });
 
       try {
+        console.log(response.data);
         message.reply(response.data.choices[0].text);
       } catch (err) {
         console.log(err);
@@ -44,5 +47,5 @@ client.on("messageCreate", async (message) => {
     console.log(err);
   }
 });
-
+keepLive();
 client.login(process.env.DISCORD_KEY);
