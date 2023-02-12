@@ -37,11 +37,11 @@ client.on("messageCreate", async (message) => {
       try {
         message.reply(response.data.choices[0].text);
       } catch (err) {
-        message.reply(err);
+        console.log(err);
       }
     }
   } catch (err) {
-    message.reply(err);
+    console.log(err);
   }
 });
 
