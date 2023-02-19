@@ -13,9 +13,9 @@ const client = new Client({
 });
 
 const { Configuration, OpenAIApi } = require("openai");
-const mySecret = process.env['DISCORD_KEY']
-const mySecret2 = process.env['OPENAI_KEY']
-const mySecret3 = process.env['OPENAI_ORG']
+const mySecret = process.env["DISCORD_KEY"];
+const mySecret2 = process.env["OPENAI_KEY"];
+const mySecret3 = process.env["OPENAI_ORG"];
 const configuration = new Configuration({
   organization: mySecret3,
   apiKey: mySecret2,
@@ -43,12 +43,27 @@ client.on("messageCreate", async (message) => {
         message.reply("Rurrrrrrr: " + response.data.choices[0].text);
       } catch (err) {
         console.log(err);
-        message.reply("Argh something went wrong, try again later!")
+        message.reply("Argh something went wrong, try again later!");
+      }
+    } else if (m.slice(0, 4) === ".img") {
+      q = m.slice(4, -1);
+      const response = await openai.createImage({
+        prompt: `${q}`,
+        n: 1,
+        size: "1024x1024",
+      });
+
+      try {
+        message.reply(response.data.data[0].url);
+      } catch (err) {
+        console.log(err);
+        message.reply("Argh something went wrong, try again later!");
+      } finally {
       }
     }
   } catch (err) {
     console.log(err);
-    message.reply("Argh something went wrong, try again later!")
+    message.reply("Argh something went wrong, try again later!");
   }
 });
 keepLive();
