@@ -6,5 +6,3 @@
 
 ![image](https://user-images.githubusercontent.com/103391501/219982665-8c56fcc9-8055-47d5-91f4-f8f04fd28694.png)
 
-
-https://discord.gg/pKbxZNet
